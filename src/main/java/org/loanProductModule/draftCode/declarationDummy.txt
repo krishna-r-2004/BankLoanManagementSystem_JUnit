@@ -1,0 +1,127 @@
+Default Constructor
+public LoanProduct(){}
+
+Parameterized Constructor
+public LoanProduct(Integer loanProductId,String productName,Double interestRate, Double minAmount, Double maxAmount,Integer tenure)
+{
+    this.loanProductId=loanProductId;
+    this.productName=productName;
+    this.interestRate=interestRate;
+    this.minAmount=minAmount;
+    this.maxAmount=maxAmount;
+    this.tenure=tenure;
+}
+
+//class LoanProductControllerTest {
+//
+//    @Test
+//    void addLoanProduct() {
+//    }
+//
+//    @Test
+//    void updateLoanProduct() {
+//    }
+//
+//    @Test
+//    void getLoanProductDetails() {
+//    }
+//
+//    @Test
+//    void getAllLoanProducts() {
+//    }
+//}
+//
+
+
+//Only Junit
+package org.loanProductModule.service;
+
+import org.loanProductModule.model.LoanProduct;
+import org.junit.jupiter.api.Test;
+import org.loanProductModule.exception.LoanProductNotFoundException;
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+class LoanProductServiceTest {
+
+    @Test
+    void addLoanProduct() {
+        LoanProductServiceImpl service = new LoanProductServiceImpl();
+        LoanProduct loanProduct = new LoanProduct();
+        loanProduct.setLoanProductId(1);
+        loanProduct.setProductName("Home Loan");
+        loanProduct.setInterestRate(5.5);
+        loanProduct.setMinAmount(100000.0);
+        loanProduct.setMaxAmount(5000000.0);
+        loanProduct.setTenure(240);
+
+        LoanProduct result = service.addLoanProduct(loanProduct);
+        assertNotNull(result);
+        assertEquals(loanProduct.getLoanProductId(), result.getLoanProductId());
+    }
+
+    @Test
+    void updateLoanProduct() {
+        LoanProductServiceImpl service = new LoanProductServiceImpl();
+        LoanProduct loanProduct = new LoanProduct();
+        loanProduct.setLoanProductId(1);
+        loanProduct.setProductName("Home Loan");
+        loanProduct.setInterestRate(5.5);
+        loanProduct.setMinAmount(100000.0);
+        loanProduct.setMaxAmount(5000000.0);
+        loanProduct.setTenure(240);
+
+        service.addLoanProduct(loanProduct);
+        loanProduct.setProductName("Updated Home Loan");
+
+        try {
+            LoanProduct result = service.updateLoanProduct(loanProduct);
+            assertNotNull(result);
+            assertEquals("Updated Home Loan", result.getProductName());
+        } catch (LoanProductNotFoundException e) {
+            // This indicates the test should fail if this exception is caught
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    void getLoanProductDetails() {
+        LoanProductServiceImpl service = new LoanProductServiceImpl();
+        LoanProduct loanProduct = new LoanProduct();
+        loanProduct.setLoanProductId(1);
+        loanProduct.setProductName("Home Loan");
+        loanProduct.setInterestRate(5.5);
+        loanProduct.setMinAmount(100000.0);
+        loanProduct.setMaxAmount(5000000.0);
+        loanProduct.setTenure(240);
+
+        service.addLoanProduct(loanProduct);
+
+        try {
+            LoanProduct result = service.getLoanProductDetails(1);
+            assertNotNull(result);
+            assertEquals(loanProduct.getLoanProductId(), result.getLoanProductId());
+        } catch (LoanProductNotFoundException e) {
+          //  fail("Loan product not found");
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    void getAllLoanProducts() {
+        LoanProductServiceImpl service = new LoanProductServiceImpl();
+        LoanProduct loanProduct = new LoanProduct();
+        loanProduct.setLoanProductId(1);
+        loanProduct.setProductName("Home Loan");
+        loanProduct.setInterestRate(5.5);
+        loanProduct.setMinAmount(100000.0);
+        loanProduct.setMaxAmount(5000000.0);
+        loanProduct.setTenure(240);
+
+        service.addLoanProduct(loanProduct);
+
+        List<LoanProduct> result = service.getAllLoanProducts();
+        assertNotNull(result);
+        assertEquals(1, result.size());
+    }
+}
+
