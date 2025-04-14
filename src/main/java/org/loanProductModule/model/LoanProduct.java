@@ -1,6 +1,10 @@
 package org.loanProductModule.model;
-import lombok.Data;
+import lombok.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class LoanProduct {
     private Integer loanProductId;
